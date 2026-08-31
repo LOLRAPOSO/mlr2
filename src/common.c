@@ -161,6 +161,6 @@ int validate_args(int argc, char **argv, int *width, int *height,
  
     if (parse_positive_int(argv[4], "num_threads", MIN_THREADS, MAX_THREADS, num_threads) != 0)
         return -1;
- 
+
     return 0;
 }
