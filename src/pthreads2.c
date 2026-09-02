@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 199309L
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,9 +23,10 @@ double run_pthreads2(const MandelbrotParams *params, unsigned char *pixels, int 
 typedef struct {
     const MandelbrotParams *params;
     unsigned char *pixels;
-    int next_row;            /* protegido por 'mutex' */
-    pthread_mutex_t mutex;
-} SharedWork;
+    int thread_id;
+    int num_threads;
+} ThreadArgs2;
+
 
 static void *worker_dynamic(void *arg) {
     SharedWork *work = (SharedWork *) arg;
@@ -44,7 +46,7 @@ static void *worker_dynamic(void *arg) {
         pthread_mutex_unlock(&work->mutex);
  
         if (y >= height) {
-            break; /* não sobraram mais linhas: esta thread termina */
+            break; 
         }
  
         double c_im = params->im_min + (y / (double) (height - 1)) * im_range;
