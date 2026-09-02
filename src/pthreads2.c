@@ -28,34 +28,23 @@ typedef struct {
 } ThreadArgs2;
 
 
-static void *worker_dynamic(void *arg) {
-    SharedWork *work = (SharedWork *) arg;
-    const MandelbrotParams *params = work->params;
+static void *worker_round_robin(void *arg) {
+    ThreadArgs2 *targs = (ThreadArgs2 *) arg;
+    const MandelbrotParams *params = targs->params;
  
     int width  = params->width;
     int height = params->height;
     double re_range = params->re_max - params->re_min;
     double im_range = params->im_max - params->im_min;
  
-    while (1) {
-        pthread_mutex_lock(&work->mutex);
-        int y = work->next_row;
-        if (y < height) {
-            work->next_row++;
-        }
-        pthread_mutex_unlock(&work->mutex);
- 
-        if (y >= height) {
-            break; 
-        }
- 
+    for (int y = targs->thread_id; y < height; y += targs->num_threads) {
         double c_im = params->im_min + (y / (double) (height - 1)) * im_range;
  
         for (int x = 0; x < width; x++) {
             double c_re = params->re_min + (x / (double) (width - 1)) * re_range;
  
             int iter = mandelbrot_point(c_re, c_im, params->max_iter);
-            work->pixels[y * width + x] = normalize_iterations(iter, params->max_iter);
+            targs->pixels[y * width + x] = normalize_iterations(iter, params->max_iter);
         }
     }
  
@@ -69,7 +58,7 @@ double run_pthreads2(const MandelbrotParams *params, unsigned char *pixels,
         log_error("falha ao alocar memoria para threads (pthreads2)");
         return -1.0;
     }
- 
+
     SharedWork work;
     work.params   = params;
     work.pixels   = pixels;
