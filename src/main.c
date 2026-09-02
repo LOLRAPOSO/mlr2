@@ -1,8 +1,16 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <stdarg.h>
+#include "common.h"
+
+typedef struct {
+    int width;
+    int height;
+    int max_iter;
+    double re_min;
+    double re_max;
+    double im_min;
+    double im_max;
+} MandelbrotParams;
+
+
 
 int main(int argc, char *argv[])
 {
