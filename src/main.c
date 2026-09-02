@@ -36,8 +36,6 @@ static int run_and_save(FILE *times_file, const char *nome_impl, double tempo, c
     return 0;
 }
 
-
-
 int main(int argc, char *argv[])
 {
     int width, height, max_iter, num_threads;
@@ -48,9 +46,7 @@ int main(int argc, char *argv[])
  
     MandelbrotParams params;
     init_params(&params, width, height, max_iter);
- 
-     *    cada implementacao preenche o buffer inteiro do zero, entao
-     *    nao ha risco de "sobra" de uma execucao contaminar a proxima. */
+
     unsigned char *pixels = malloc((size_t) width * (size_t) height);
     if (pixels == NULL) {
         log_error("falha ao alocar memoria para o buffer de pixels "
