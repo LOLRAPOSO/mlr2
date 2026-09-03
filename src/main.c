@@ -1,6 +1,6 @@
 #include "common.h"
 
-#define LOGIN "mla"
+#define LOGIN "mlr2"
 
 extern double run_serial(const MandelbrotParams *params, unsigned char *pixels);
 extern double run_openmp(const MandelbrotParams *params, unsigned char *pixels, int num_threads);
