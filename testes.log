@@ -1,75 +1,0 @@
-Script started on 2026-09-02 21:04:35-03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="155" LINES="11"]
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# make [K[K[K[Kake clean [K
-[?2004lCommand 'make' not found, but can be installed with:
-apt install make        # version 4.3-4.1build1, or
-apt install make-guile  # version 4.3-4.1build1
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# make
-[?2004lCommand 'make' not found, but can be installed with:
-apt install make        # version 4.3-4.1build1, or
-apt install make-guile  # version 4.3-4.1build1
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# /.[K[K./mandelbrot [K 700[K[K[K50 0[K[K0 5000[K 1000 4 [K
-[?2004lbash: ./mandelbrot: No such file or directory
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# make clean
-[?2004lCommand 'make' not found, but can be installed with:
-apt install make        # version 4.3-4.1build1, or
-apt install make-guile  # version 4.3-4.1build1
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7mapt install make[27mapt install make
-[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
-Reading state information... 0% Reading state information... 0%Reading state information... Done
-Suggested packages:
-  make-doc
-The following NEW packages will be installed:
-  make
-0 upgraded, 1 newly installed, 0 to remove and 129 not upgraded.
-Need to get 180 kB of archives.
-After this operation, 414 kB of additional disk space will be used.
-[33m0% [Working][0m[33m0% [Connecting to archive.ubuntu.com][0m                                     Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 make amd64 4.3-4.1build2 [180 kB]
-[33m                                     2% [1 make 4620 B/180 kB 3%][0m[33m23% [1 make 51.3 kB/180 kB 29%][0m[33m                               100% [Working][0m              Fetched 180 kB in 2s (90.0 kB/s)
-debconf: unable to initialize frontend: Dialog
-debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
-debconf: falling back to frontend: Readline
-
-7[0;10r8[1ASelecting previously unselected package make.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 45067 files and directories currently installed.)
-Preparing to unpack .../make_4.3-4.1build2_amd64.deb ...
-7[11;0f[42m[30mProgress: [  0%][49m[39m [.....................................................................................................................................] 87[11;0f[42m[30mProgress: [ 20%][49m[39m [##########################...........................................................................................................] 8Unpacking make (4.3-4.1build2) ...
-7[11;0f[42m[30mProgress: [ 40%][49m[39m [#####################################################................................................................................] 8Setting up make (4.3-4.1build2) ...
-7[11;0f[42m[30mProgress: [ 60%][49m[39m [###############################################################################......................................................] 87[11;0f[42m[30mProgress: [ 80%][49m[39m [##########################################################################################################...........................] 8Processing triggers for man-db (2.12.0-4build2) ...
-
-7[0;11r8[1A[J[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# make
-[?2004lgcc -Wall -O2 -fopenmp  -c src/main.c -o src/main.o
-gcc -Wall -O2 -fopenmp  -c src/common.c -o src/common.o
-gcc -Wall -O2 -fopenmp  -c src/serial.c -o src/serial.o
-gcc -Wall -O2 -fopenmp  -c src/openmp.c -o src/openmp.o
-gcc -Wall -O2 -fopenmp  -c src/pthreads1.c -o src/pthreads1.o
-gcc -Wall -O2 -fopenmp  -c src/pthreads2.c -o src/pthreads2.o
-gcc -Wall -O2 -fopenmp  -o mandelbrot src/main.o src/common.o src/serial.o src/openmp.o src/pthreads1.o src/pthreads2.o -lpthread -lm
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot 500 500 1000 4[27m./mandelbrot 500 500 1000 4
-[?2004l[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# echo ""e"x"i"t" "[1P" "c"o"d"e" "[1P":" "$"?"[C
-[?2004lexit code: 0
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7mls -la *.pgm times.txt[27m[1Pls -la *.pgm times.tx[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7mls -la *.pgm times.txt[27mls -la *.pgm times.txt
-[?2004l-rwxrwxrwx 1 root root 586520 Sep  2 21:28 [0m[01;32mmandelbrot_mla_openmp.pgm[0m
--rwxrwxrwx 1 root root 586520 Sep  2 21:28 [01;32mmandelbrot_mla_pthreads1.pgm[0m
--rwxrwxrwx 1 root root 586520 Sep  2 21:28 [01;32mmandelbrot_mla_pthreads2.pgm[0m
--rwxrwxrwx 1 root root 586520 Sep  2 21:28 [01;32mmandelbrot_mla_serial.pgm[0m
--rwxrwxrwx 1 root root    110 Sep  2 21:28 [01;32mtimes.txt[0m
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7mcat times.txt[27mcat times.txt
-[?2004lserial: 0.189850 segundos
-openmp: 0.067444 segundos
-pthreads1: 0.136905 segundos
-pthreads2: 0.100487 segundos
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7mmd5sum *.pgm[27mmd5sum *.pgm
-[?2004l85c7d60cc3c94a0c580172e8b1e6b138  mandelbrot_mla_openmp.pgm
-85c7d60cc3c94a0c580172e8b1e6b138  mandelbrot_mla_pthreads1.pgm
-85c7d60cc3c94a0c580172e8b1e6b138  mandelbrot_mla_pthreads2.pgm
-85c7d60cc3c94a0c580172e8b1e6b138  mandelbrot_mla_serial.pgm
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot[27m./mandelbrot
-[?2004lErro: numero de argumentos invalido.
-Uso: ./mandelbrot [largura] [altura] [max_iteracoes] [num_threads][?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot[27m[1P./mandelbro[K[K[K[K[K[K[K[K[K[K[K[7m./mandelbrot abc 400 500 4[27m./mandelbrot abc 400 500 4
-[?2004lErro: 'largura' deve ser um numero inteiro valido (recebido: 'abc')[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot 400 400 500 0[27m./mandelbrot 400 400 500 0
-[?2004lErro: 'num_threads' deve estar entre 1 e 256 (recebido: 0)[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot -100 400 500 4[27m./mandelbrot -100 400 500 4
-[?2004lErro: 'largura' deve estar entre 1 e 20000 (recebido: -100)[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot 400 400 500 99999[27m./mandelbrot 400 400 500 99999
-[?2004lErro: 'num_threads' deve estar entre 1 e 256 (recebido: 99999)[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot 1920 1080 1000 8[27m./mandelbrot 1920 1080 1000 8
-[?2004l./mandelbrot 1920 1080 1000 8                             [?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mla# [7m./mandelbrot 100 100 200 3[27m./mandelbrot 100 100 200 3
-[?2004l[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/OneDrive/Documentos/maLDITO/mlaroot@RAPOSO-PC:/mnt/c/Users/RENATA/OneDri
