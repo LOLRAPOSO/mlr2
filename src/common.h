@@ -33,6 +33,7 @@ void compute_rows(const MandelbrotParams *params, unsigned char *pixels, int row
 int save_pgm_raw(const char *filename, const unsigned char *pixels, int width, int height);
 int validate_args(int argc, char **argv, int *width, int *height, int *max_iter, int *num_threads);
 void log_error(const char *fmt, ...);
+unsigned char normalize_iterations(int iter, int max_iter);
 
 #endif /* COMMON_H */
 
