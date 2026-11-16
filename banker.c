@@ -195,4 +195,43 @@ int main(int argc, char *argv[]){             ////////////////////MAIN//////////
     if (!cmd) erro("nao foi possivel abrir commands.txt");
     FILE *out = fopen("result.txt", "w");
     if (!out) erro("nao foi possivel criar result.txt");
+ 
+    char linha[1024];
+    int req[m];
+    while (fgets(linha, sizeof linha, cmd)) {
+        char *tok = strtok(linha, " \t\r\n");
+        if (!tok) continue;                       /* linha vazia */
+ 
+        if (strcmp(tok, "*") == 0) {
+            imprime_estado(out);
+        } else if (strcmp(tok, "RQ") == 0 || strcmp(tok, "RL") == 0) {
+            int ehRQ = (tok[1] == 'Q');
+ 
+            /* cliente */
+            tok = strtok(NULL, " \t\r\n");
+            if (!tok) erro("commands.txt: comando incompleto");
+            int c = atoi(tok);
+            if (c < 0 || c >= n) erro("commands.txt: cliente inexistente");
+ 
+            /* m valores */
+            for (int j = 0; j < m; j++) {
+                tok = strtok(NULL, " \t\r\n");
+                if (!tok) erro("commands.txt: numero de valores difere do numero de recursos");
+                req[j] = atoi(tok);
+            }
+            if (strtok(NULL, " \t\r\n"))
+                erro("commands.txt: valores a mais no comando");
+ 
+            if (ehRQ) requisicao(out, c, req);
+            else      liberacao(out, c, req);
+        } else {
+            erro("commands.txt: comando desconhecido");
+        }
+    }
+ 
+    fclose(cmd);
+    fclose(out);
+    return 0;
 }
+ 
+    
