@@ -26,14 +26,9 @@ void imprime_vetor(FILE *f, int *v) {
         fprintf(f, "%d ", v[j]);
 }
 
-void imprime_vetor(FILE *f, int *v) {
-    for (int j = 0; j < m; j++)
-        fprintf(f, "%d ", v[j]);
-}
-
 int estado_seguro(void) {
-    int work[m];        /* copia de available */
-    int finish[n];      /* finish[i] = 1 se o cliente i "terminou" */
+    int work[m];        
+    int finish[n];      
  
     for (int j = 0; j < m; j++) work[j] = available[j];
     for (int i = 0; i < n; i++) finish[i] = 0;
@@ -44,13 +39,13 @@ int estado_seguro(void) {
         for (int i = 0; i < n; i++) {
             if (finish[i]) continue;
  
-            /* o cliente i consegue terminar com o que esta em work? */
+           
             int pode = 1;
             for (int j = 0; j < m; j++)
                 if (need[i][j] > work[j]) { pode = 0; break; }
  
             if (pode) {
-                /* ele termina e devolve tudo que tinha */
+                
                 for (int j = 0; j < m; j++) work[j] += allocation[i][j];
                 finish[i] = 1;
                 achou = 1;
@@ -58,17 +53,61 @@ int estado_seguro(void) {
         }
     }
  
-    /* seguro somente se TODOS terminaram */
+    
     for (int i = 0; i < n; i++)
         if (!finish[i]) return 0;
     return 1;
+}
+
+void requisicao(FILE *out, int c, int *req) {
+
+    for (int j = 0; j < m; j++)
+        if (req[j] > need[c][j]) {
+            fprintf(out, "The customer %d request ", c);
+            imprime_vetor(out, req);
+            fprintf(out, "was denied because exceed its maximum allocation\n");
+            return;
+        }
+ 
+    for (int j = 0; j < m; j++)
+        if (req[j] > available[j]) {
+            fprintf(out, "The resources ");
+            imprime_vetor(out, available);
+            fprintf(out, "are not enough to customer %d request ", c);
+            imprime_vetor(out, req);
+            fprintf(out, "\n");
+            return;
+        }
+ 
+    for (int j = 0; j < m; j++) {
+        available[j]     -= req[j];
+        allocation[c][j] += req[j];
+        need[c][j]       -= req[j];
+    }
+ 
+    if (!estado_seguro()) {
+        for (int j = 0; j < m; j++) {
+            available[j]     += req[j];
+            allocation[c][j] -= req[j];
+            need[c][j]       += req[j];
+        }
+        fprintf(out, "The customer %d request ", c);
+        imprime_vetor(out, req);
+        fprintf(out, "was denied because result in an unsafe state\n");
+        return;
+    }
+ 
+    fprintf(out, "Allocate to customer %d the resources ", c);
+    for (int j = 0; j < m; j++)
+        fprintf(out, j ? " %d" : "%d", req[j]);   
+    fprintf(out, "\n");
 }
 
 void le_clientes(void) {
     FILE *f = fopen("customer.txt", "r");
     if (!f) erro("nao foi possivel abrir customer.txt");
  
-    /* 1a passada: conta as linhas nao vazias = numero de clientes */
+    
     char linha[1024];
     n = 0;
     while (fgets(linha, sizeof linha, f))
@@ -80,7 +119,7 @@ void le_clientes(void) {
     allocation = nova_matriz(n, m);
     need       = nova_matriz(n, m);
  
-    /* 2a passada: le os valores separados por virgula */
+    
     int i = 0;
     while (fgets(linha, sizeof linha, f)) {
         if (strspn(linha, " \t\r\n") == strlen(linha)) continue;
@@ -116,7 +155,7 @@ void imprime_estado(FILE *out) {
     fprintf(out, "\n");
 }
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){             ////////////////////MAIN//////////////////////
 
     if (argc < 2){ 
         erro("uso: ./banker <inst_recurso0> <inst_recurso1> ...");
