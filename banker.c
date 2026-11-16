@@ -103,6 +103,26 @@ void requisicao(FILE *out, int c, int *req) {
     fprintf(out, "\n");
 }
 
+void liberacao(FILE *out, int c, int *rel) {
+    for (int j = 0; j < m; j++)
+        if (rel[j] > allocation[c][j]) {
+            fprintf(out, "The customer %d release ", c);
+            imprime_vetor(out, rel);
+            fprintf(out, "was denied because exceed its allocation\n");
+            return;
+        }
+ 
+    for (int j = 0; j < m; j++) {
+        available[j]     += rel[j];
+        allocation[c][j] -= rel[j];
+        need[c][j]       += rel[j];
+    }
+    fprintf(out, "Release from customer %d the resources ", c);
+    for (int j = 0; j < m; j++)
+        fprintf(out, j ? " %d" : "%d", rel[j]);
+    fprintf(out, "\n");
+}
+
 void le_clientes(void) {
     FILE *f = fopen("customer.txt", "r");
     if (!f) erro("nao foi possivel abrir customer.txt");
