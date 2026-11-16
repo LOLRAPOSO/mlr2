@@ -1,0 +1,41 @@
+Script started on 2026-11-16 15:27:26-03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="156" LINES="12"]
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; whoami; pwd[27mdate; whoami; pwd
+[?2004lMon Nov 16 16:46:23 -03 2026
+root
+/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mmake clean[27mmake clean
+[?2004lrm -f banker result.txt
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mmake[27mmake
+[?2004lgcc -Wall -Wextra -std=c99 -O2 -o banker banker.c
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; ./banker 10 5 7; cat[27mdate; ./banker 10 5 7; cat
+[?2004lMon Nov 16 16:48:47 -03 2026
+Erro: nao foi possivel abrir customer.txt
+date; ./banker 10 5 7; cat result.txt
+date; ./banker 10 5 7; cat result.txt
+^C
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; ./banker 10 5 7; cat result.txt[27mdate; ./banker 10 5 7; cat result.txt
+[?2004lMon Nov 16 16:50:59 -03 2026
+Erro: nao foi possivel abrir customer.txt
+cat: result.txt: No such file or directory
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; ./banker 10 5 7; cat result.txt[27m[1Pdate; ./banker 10 5 7; cat result.tx[K[K[K[K[K[K[K[K[K[K
+[?2004lMon Nov 16 16:52:55 -03 2026
+^C
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; printf 'RQ 0 7 4 3\n*\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.t[27m[7mx[27m[7mt[27m[A]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# date; printf 'RQ 0 7 4 3\n*\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt
+[?2004lMon Nov 16 17:27:09 -03 2026
+Allocate to customer 0 the resources 7 4 3
+MAXIMUM   |   ALLOCATION  |   NEED
+7 5 3     |   7 4 3       |   0 1 0 
+3 2 2     |   0 0 0       |   3 2 2 
+9 0 2     |   0 0 0       |   9 0 2 
+2 2 2     |   0 0 0       |   2 2 2 
+4 3 3     |   0 0 0       |   4 3 3 
+AVAILABLE 3 1 4 
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; : > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdate; : > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt
+[?2004lMon Nov 16 17:27:43 -03 2026
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; printf 'RQ 0 7 4 3\n' > commands.txt; rm -f result.txt; ./banker 5 5 5; cat result.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdate; printf 'RQ 0 7 4 3\n' > commands.txt; rm -f result.txt; ./banker 5 5 5; cat result.txt
+[?2004lMon Nov 16 17:28:17 -03 2026
+The resources 5 5 5 are not enough to customer 0 request 7 4 3 
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; printf 'RL 0 1 0 0\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdate; printf 'RL 0 1 0 0\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt
+[?2004lMon Nov 16 17:28:50 -03 2026
+The customer 0 release 1 0 0 was denied because exceed its allocation
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2

@@ -200,7 +200,7 @@ int main(int argc, char *argv[]){             ////////////////////MAIN//////////
     int req[m];
     while (fgets(linha, sizeof linha, cmd)) {
         char *tok = strtok(linha, " \t\r\n");
-        if (!tok) continue;                       /* linha vazia */
+        if (!tok) continue;                       
  
         if (strcmp(tok, "*") == 0) {
             imprime_estado(out);
