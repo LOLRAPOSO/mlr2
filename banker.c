@@ -26,6 +26,11 @@ void imprime_vetor(FILE *f, int *v) {
         fprintf(f, "%d ", v[j]);
 }
 
+void imprime_vetor(FILE *f, int *v) {
+    for (int j = 0; j < m; j++)
+        fprintf(f, "%d ", v[j]);
+}
+
 void le_clientes(void) {
     FILE *f = fopen("customer.txt", "r");
     if (!f) erro("nao foi possivel abrir customer.txt");
@@ -64,6 +69,18 @@ void le_clientes(void) {
         i++;
     }
     fclose(f);
+}
+
+void imprime_estado(FILE *out) {
+    fprintf(out, "MAXIMUM   |   ALLOCATION  |   NEED\n");
+    for (int i = 0; i < n; i++) {
+        imprime_vetor(out, maximum[i]);    fprintf(out, "    |   ");
+        imprime_vetor(out, allocation[i]); fprintf(out, "      |   ");
+        imprime_vetor(out, need[i]);       fprintf(out, "\n");
+    }
+    fprintf(out, "AVAILABLE ");
+    imprime_vetor(out, available);
+    fprintf(out, "\n");
 }
 
 int main(int argc, char *argv[]){
