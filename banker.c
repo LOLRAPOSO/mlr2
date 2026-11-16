@@ -31,6 +31,39 @@ void imprime_vetor(FILE *f, int *v) {
         fprintf(f, "%d ", v[j]);
 }
 
+int estado_seguro(void) {
+    int work[m];        /* copia de available */
+    int finish[n];      /* finish[i] = 1 se o cliente i "terminou" */
+ 
+    for (int j = 0; j < m; j++) work[j] = available[j];
+    for (int i = 0; i < n; i++) finish[i] = 0;
+ 
+    int achou = 1;
+    while (achou) {
+        achou = 0;
+        for (int i = 0; i < n; i++) {
+            if (finish[i]) continue;
+ 
+            /* o cliente i consegue terminar com o que esta em work? */
+            int pode = 1;
+            for (int j = 0; j < m; j++)
+                if (need[i][j] > work[j]) { pode = 0; break; }
+ 
+            if (pode) {
+                /* ele termina e devolve tudo que tinha */
+                for (int j = 0; j < m; j++) work[j] += allocation[i][j];
+                finish[i] = 1;
+                achou = 1;
+            }
+        }
+    }
+ 
+    /* seguro somente se TODOS terminaram */
+    for (int i = 0; i < n; i++)
+        if (!finish[i]) return 0;
+    return 1;
+}
+
 void le_clientes(void) {
     FILE *f = fopen("customer.txt", "r");
     if (!f) erro("nao foi possivel abrir customer.txt");
