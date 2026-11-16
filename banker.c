@@ -67,13 +67,23 @@ void le_clientes(void) {
 }
 
 int main(int argc, char *argv[]){
+
+    if (argc < 2){ 
+        erro("uso: ./banker <inst_recurso0> <inst_recurso1> ...");
+    }
+
     m = argc - 1;
     available = malloc(m * sizeof(int));
     for (int j = 0; j < m; j++) {
         char *fim;
         long v = strtol(argv[j + 1], &fim, 10);
+        if (*fim != '\0' || v < 0) erro("argumento invalido");
         available[j] = (int)v;
     }
+    le_clientes();
 
-
+    FILE *cmd = fopen("commands.txt", "r");
+    if (!cmd) erro("nao foi possivel abrir commands.txt");
+    FILE *out = fopen("result.txt", "w");
+    if (!out) erro("nao foi possivel criar result.txt");
 }
