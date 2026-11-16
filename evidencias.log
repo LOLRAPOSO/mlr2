@@ -38,4 +38,9 @@ The resources 5 5 5 are not enough to customer 0 request 7 4 3
 [?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mdate; printf 'RL 0 1 0 0\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdate; printf 'RL 0 1 0 0\n' > commands.txt; rm -f result.txt; ./banker 10 5 7; cat result.txt
 [?2004lMon Nov 16 17:28:50 -03 2026
 The customer 0 release 1 0 0 was denied because exceed its allocation
-[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# [7mcp commands.orig commands.txt[27mcp commands.orig commands.txt
+[?2004lcp: cannot stat 'commands.orig': No such file or directory
+[?2004h]0;root@RAPOSO-PC: /mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2root@RAPOSO-PC:/mnt/c/Users/RENATA/Downloads/TEMPORARAI/mlr2# exit [K
+[?2004lexit
+
+Script done on 2026-11-16 20:51:01-03:00 [COMMAND_EXIT_CODE="1"]
