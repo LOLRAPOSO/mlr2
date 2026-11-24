@@ -1,0 +1,526 @@
+Evidencias de execucao - Implementacao 6 (Memoria Virtual)
+Data: Tue Nov 24 19:15:33 -03 2026
+Sistema: Linux 6.18.44-fc-v819 x86_64
+Arquivo de enderecos: address.txt (1000 linhas)
+
+=== 1 sem TLB, 256 frames ===
+$ ./vm_256_notlb address.txt fifo fifo
+Configuracao: frames=256, TLB=nao, threads=nao, pagina=fifo, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 250
+Page Fault Rate = 0.250
+Page Replacements = 0
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 2 sem TLB, 128 frames, FIFO ===
+$ ./vm_128_notlb address.txt fifo fifo
+Configuracao: frames=128, TLB=nao, threads=nao, pagina=fifo, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 460
+Page Fault Rate = 0.460
+Page Replacements = 332
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 3 sem TLB, 128 frames, LRU ===
+$ ./vm_128_notlb address.txt lru fifo
+Configuracao: frames=128, TLB=nao, threads=nao, pagina=lru, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 4 com TLB sem thread, TLB FIFO ===
+$ ./vm_tlb_nothread address.txt lru fifo
+Configuracao: frames=128, TLB=sim, threads=nao, pagina=lru, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+TLB Hits = 112
+TLB Hit Rate = 0.112
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 5 com TLB sem thread, TLB LRU ===
+$ ./vm_tlb_nothread address.txt lru lru
+Configuracao: frames=128, TLB=sim, threads=nao, pagina=lru, tlb_alg=lru
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+TLB Hits = 111
+TLB Hit Rate = 0.111
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 6 com TLB com threads, pagina LRU, TLB FIFO (exemplo do enunciado) ===
+$ ./vm address.txt lru fifo
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=lru, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+TLB Hits = 112
+TLB Hit Rate = 0.112
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 7 com TLB com threads, pagina LRU, TLB LRU ===
+$ ./vm address.txt lru lru
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=lru, tlb_alg=lru
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+TLB Hits = 111
+TLB Hit Rate = 0.111
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 8 com TLB com threads, pagina FIFO, TLB FIFO ===
+$ ./vm address.txt fifo fifo
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=fifo, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 460
+Page Fault Rate = 0.460
+Page Replacements = 332
+TLB Hits = 111
+TLB Hit Rate = 0.111
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== 9 com TLB com threads, pagina FIFO, TLB LRU ===
+$ ./vm address.txt fifo lru
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=fifo, tlb_alg=lru
+Number of Translated Addresses = 1000
+Page Faults = 460
+Page Fault Rate = 0.460
+Page Replacements = 332
+TLB Hits = 110
+TLB Hit Rate = 0.110
+Saida gravada em correct.txt
+(codigo de saida: 0)
+
+=== Conferencia: valores lidos x BACKING_STORE.bin ===
+out_1_sem_TLB__256_frames.txt: OK
+out_2_sem_TLB__128_frames__FIFO.txt: OK
+out_3_sem_TLB__128_frames__LRU.txt: OK
+out_4_com_TLB_sem_thread__TLB_FIFO.txt: OK
+out_5_com_TLB_sem_thread__TLB_LRU.txt: OK
+out_6_com_TLB_com_threads__pagina_LRU__TLB_FIFO__exemplo_do_enunciado_.txt: OK
+out_7_com_TLB_com_threads__pagina_LRU__TLB_LRU.txt: OK
+out_8_com_TLB_com_threads__pagina_FIFO__TLB_FIFO.txt: OK
+out_9_com_TLB_com_threads__pagina_FIFO__TLB_LRU.txt: OK
+RESULTADO GERAL: todas as saidas conferem
+
+=== Conferencia: variantes com TLB x sem TLB (mesmos enderecos fisicos) ===
+sem TLB LRU == com TLB com threads (LRU, FIFO): IGUAIS
+TLB sem threads == TLB com threads (LRU, FIFO): IGUAIS
+TLB sem threads == TLB com threads (LRU, LRU): IGUAIS
+
+##### TESTES DE TRATAMENTO DE ERRO #####
+
+=== E1 sem argumentos ===
+$ ./vm 
+Erro: numero de argumentos invalido (esperado 3, recebido 0)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+  arg 2: algoritmo de substituicao de pagina
+  arg 3: algoritmo de substituicao da TLB
+Exemplo: ./vm address.txt lru fifo
+(codigo de saida: 1)
+
+=== E2 argumentos a menos ===
+$ ./vm address.txt lru
+Erro: numero de argumentos invalido (esperado 3, recebido 2)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+  arg 2: algoritmo de substituicao de pagina
+  arg 3: algoritmo de substituicao da TLB
+Exemplo: ./vm address.txt lru fifo
+(codigo de saida: 1)
+
+=== E3 argumentos a mais ===
+$ ./vm address.txt lru fifo extra
+Erro: numero de argumentos invalido (esperado 3, recebido 4)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+  arg 2: algoritmo de substituicao de pagina
+  arg 3: algoritmo de substituicao da TLB
+Exemplo: ./vm address.txt lru fifo
+(codigo de saida: 1)
+
+=== E4 algoritmo de pagina invalido ===
+$ ./vm address.txt xyz fifo
+Erro: algoritmo de pagina invalido 'xyz' (use fifo ou lru)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+  arg 2: algoritmo de substituicao de pagina
+  arg 3: algoritmo de substituicao da TLB
+Exemplo: ./vm address.txt lru fifo
+(codigo de saida: 1)
+
+=== E5 algoritmo de TLB invalido ===
+$ ./vm address.txt lru 123
+Erro: algoritmo de TLB invalido '123' (use fifo ou lru)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+  arg 2: algoritmo de substituicao de pagina
+  arg 3: algoritmo de substituicao da TLB
+Exemplo: ./vm address.txt lru fifo
+(codigo de saida: 1)
+
+=== E6 arquivo inexistente ===
+$ ./vm naoexiste.txt lru fifo
+Erro: nao foi possivel abrir o arquivo de enderecos 'naoexiste.txt': No such file or directory
+(codigo de saida: 1)
+
+=== E7 arquivo e um diretorio ===
+$ ./vm /tmp lru fifo
+Erro: falha ao ler '/tmp'
+(codigo de saida: 1)
+
+=== E8 linha nao numerica ===
+$ ./vm /tmp/_bad_text.txt lru fifo
+Erro: formato invalido em '/tmp/_bad_text.txt' (linha 3: "abc" nao e um inteiro nao negativo)
+(codigo de saida: 1)
+
+=== E9 linha em branco no meio ===
+$ ./vm /tmp/_bad_blank.txt lru fifo
+Erro: formato invalido em '/tmp/_bad_blank.txt' (linha em branco antes da linha 3)
+(codigo de saida: 1)
+
+=== E10 numero negativo ===
+$ ./vm /tmp/_bad_neg.txt lru fifo
+Erro: formato invalido em '/tmp/_bad_neg.txt' (linha 2: "-5" nao e um inteiro nao negativo)
+(codigo de saida: 1)
+
+=== E11 numero fora de 32 bits ===
+$ ./vm /tmp/_bad_big.txt lru fifo
+Erro: formato invalido em '/tmp/_bad_big.txt' (linha 1: valor fora do intervalo de 32 bits)
+(codigo de saida: 1)
+
+=== E12 arquivo vazio ===
+$ ./vm /tmp/_empty.txt lru fifo
+Erro: o arquivo '/tmp/_empty.txt' esta vazio (nenhum endereco encontrado)
+(codigo de saida: 1)
+
+=== E13 BACKING_STORE.bin ausente ===
+$ ./vm address.txt lru fifo
+Erro: nao foi possivel abrir BACKING_STORE.bin: No such file or directory
+(codigo de saida: 1)
+
+=== Resumo das estatisticas (page faults / TLB hits) ===
+=== 1 sem TLB, 256 frames ===
+Page Faults = 250
+Page Replacements = 0
+=== 2 sem TLB, 128 frames, FIFO ===
+Page Faults = 460
+Page Replacements = 332
+=== 3 sem TLB, 128 frames, LRU ===
+Page Faults = 465
+Page Replacements = 337
+=== 4 com TLB sem thread, TLB FIFO ===
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 112
+=== 5 com TLB sem thread, TLB LRU ===
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 111
+=== 6 com TLB com threads, pagina LRU, TLB FIFO (exemplo do enunciado) ===
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 112
+=== 7 com TLB com threads, pagina LRU, TLB LRU ===
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 111
+=== 8 com TLB com threads, pagina FIFO, TLB FIFO ===
+Page Faults = 460
+Page Replacements = 332
+TLB Hits = 111
+=== 9 com TLB com threads, pagina FIFO, TLB LRU ===
+Page Faults = 460
+Page Replacements = 332
+TLB Hits = 110
+================================================================
+SESSAO DE TESTES - Implementacao 6 (Memoria Virtual)
+[19:37:53] $ date
+Tue Nov 24 19:37:53 -03 2026
+[19:37:53] (saida=0)
+[19:37:53] $ whoami
+root
+[19:37:53] (saida=0)
+[19:37:53] $ pwd
+/home/claude/mlr2
+[19:37:53] (saida=0)
+[19:37:53] $ uname -srm
+Linux 6.18.44-fc-v819 x86_64
+[19:37:53] (saida=0)
+[19:37:53] $ gcc --version | head -1
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+[19:37:53] (saida=0)
+
+[19:37:53] ##### 1. [S1] Compilar do zero (comandos do relatorio, secao 3)
+[19:37:53] $ make clean
+make[1]: Entering directory '/home/claude/mlr2'
+rm -f vm vm_256_notlb vm_128_notlb vm_tlb_nothread correct.txt out_*.txt
+make[1]: Leaving directory '/home/claude/mlr2'
+[19:37:53] (saida=0)
+[19:37:53] $ make
+make[1]: Entering directory '/home/claude/mlr2'
+cc -Wall -Wextra -O2 -pthread -o vm vm.c  -pthread
+make[1]: Leaving directory '/home/claude/mlr2'
+[19:37:53] (saida=0)
+[19:37:53] $ ls -l vm
+-rwxr-xr-x 1 root root 21696 Nov 24 19:37 vm
+[19:37:53] (saida=0)
+
+[19:37:53] ##### 2. Dados de teste (sinteticos, gen_data.py; os do professor nao estavam disponiveis)
+[19:37:53] $ make testdata
+make[1]: Entering directory '/home/claude/mlr2'
+python3 gen_data.py
+Gerados BACKING_STORE.bin e address.txt
+make[1]: Leaving directory '/home/claude/mlr2'
+[19:37:54] (saida=0)
+[19:37:54] $ wc -l address.txt; ls -l BACKING_STORE.bin
+1000 address.txt
+-rw-r--r-- 1 root root 65536 Nov 24 19:37 BACKING_STORE.bin
+[19:37:54] (saida=0)
+
+[19:37:54] ##### 3. [S1] Exemplo do enunciado: ./vm address.txt lru fifo
+[19:37:54] $ ./vm address.txt lru fifo
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=lru, tlb_alg=fifo
+Number of Translated Addresses = 1000
+Page Faults = 465
+Page Fault Rate = 0.465
+Page Replacements = 337
+TLB Hits = 112
+TLB Hit Rate = 0.112
+Saida gravada em correct.txt
+[19:37:54] (saida=0)
+[19:37:54] $ head -3 correct.txt; wc -l correct.txt
+Virtual address: 31858 Physical address: 114 Value: -39
+Virtual address: 51556 Physical address: 356 Value: -85
+Virtual address: 53506 Physical address: 514 Value: 77
+1000 correct.txt
+[19:37:54] (saida=0)
+
+[19:37:54] ##### 4. [S1] Variantes da rubrica (256 frames, sem TLB, TLB sem threads)
+[19:37:54] $ make variants 2>&1 | grep -c -i warning; true
+0
+[19:37:55] (saida=0)
+[19:37:55] $ ls -l vm_256_notlb vm_128_notlb vm_tlb_nothread
+-rwxr-xr-x 1 root root 17392 Nov 24 19:37 vm_128_notlb
+-rwxr-xr-x 1 root root 17392 Nov 24 19:37 vm_256_notlb
+-rwxr-xr-x 1 root root 21528 Nov 24 19:37 vm_tlb_nothread
+[19:37:55] (saida=0)
+
+[19:37:55] ##### 5. Reproducao do aviso de compilacao encontrado nas variantes sem TLB (corrigido no vm.c)
+     (copia do vm.c SEM o atributo 'unused' compilada com -DUSE_TLB=0 -Wall -Wextra)
+[19:37:55] $ gcc -Wall -Wextra -O2 -pthread -DUSE_TLB=0 -o /tmp/tmp.XoXAE0kvVy/vm_antigo /tmp/tmp.XoXAE0kvVy/vm_antigo.c 2>&1 | grep warning
+/tmp/tmp.XoXAE0kvVy/vm_antigo.c:114:13: warning: 'tlb_insert' defined but not used [-Wunused-function]
+/tmp/tmp.XoXAE0kvVy/vm_antigo.c:90:12: warning: 'tlb_lookup' defined but not used [-Wunused-function]
+/tmp/tmp.XoXAE0kvVy/vm_antigo.c:72:13: warning: 'n_tlb_hits' defined but not used [-Wunused-variable]
+[19:37:55] (saida=0)
+     (vm.c atual, mesmas flags:)
+[19:37:55] $ gcc -Wall -Wextra -O2 -pthread -DUSE_TLB=0 -o /tmp/tmp.XoXAE0kvVy/vm_novo vm.c 2>&1 | grep -c warning; true
+0
+[19:37:55] (saida=0)
+
+[19:37:55] ##### 6. [S1] Os 9 fluxos da rubrica (estatisticas)
+[19:37:55] $ ./vm_256_notlb address.txt fifo fifo   (fluxo 1)
+Configuracao: frames=256, TLB=nao, threads=nao, pagina=fifo, tlb_alg=fifo
+Page Faults = 250
+Page Replacements = 0
+[19:37:55] $ ./vm_128_notlb address.txt fifo fifo   (fluxo 2)
+Configuracao: frames=128, TLB=nao, threads=nao, pagina=fifo, tlb_alg=fifo
+Page Faults = 460
+Page Replacements = 332
+[19:37:55] $ ./vm_128_notlb address.txt lru fifo   (fluxo 3)
+Configuracao: frames=128, TLB=nao, threads=nao, pagina=lru, tlb_alg=fifo
+Page Faults = 465
+Page Replacements = 337
+[19:37:55] $ ./vm_tlb_nothread address.txt lru fifo   (fluxo 4)
+Configuracao: frames=128, TLB=sim, threads=nao, pagina=lru, tlb_alg=fifo
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 112
+[19:37:55] $ ./vm_tlb_nothread address.txt lru lru   (fluxo 5)
+Configuracao: frames=128, TLB=sim, threads=nao, pagina=lru, tlb_alg=lru
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 111
+[19:37:55] $ ./vm address.txt lru fifo   (fluxo 6)
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=lru, tlb_alg=fifo
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 112
+[19:37:55] $ ./vm address.txt lru lru   (fluxo 7)
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=lru, tlb_alg=lru
+Page Faults = 465
+Page Replacements = 337
+TLB Hits = 111
+[19:37:56] $ ./vm address.txt fifo fifo   (fluxo 8)
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=fifo, tlb_alg=fifo
+Page Faults = 460
+Page Replacements = 332
+TLB Hits = 111
+[19:37:57] $ ./vm address.txt fifo lru   (fluxo 9)
+Configuracao: frames=128, TLB=sim, threads=sim, pagina=fifo, tlb_alg=lru
+Page Faults = 460
+Page Replacements = 332
+TLB Hits = 110
+
+[19:37:57] ##### 7. Conferencia: valor lido x BACKING_STORE.bin e saidas com TLB x sem TLB
+fluxo 1: 1000 linhas,  valores e deslocamentos OK
+fluxo 2: 1000 linhas,  valores e deslocamentos OK
+fluxo 3: 1000 linhas,  valores e deslocamentos OK
+fluxo 4: 1000 linhas,  valores e deslocamentos OK
+fluxo 5: 1000 linhas,  valores e deslocamentos OK
+fluxo 6: 1000 linhas,  valores e deslocamentos OK
+fluxo 7: 1000 linhas,  valores e deslocamentos OK
+fluxo 8: 1000 linhas,  valores e deslocamentos OK
+fluxo 9: 1000 linhas,  valores e deslocamentos OK
+fluxo 3 (sem TLB) == fluxo 6 (com TLB e threads): saidas IGUAIS
+fluxo 4 (TLB sem thread) == fluxo 6 (TLB com threads): saidas IGUAIS
+fluxo 5 (TLB sem thread) == fluxo 7 (TLB com threads): saidas IGUAIS
+
+[19:37:57] ##### 8. Simulador de referencia independente (Python) x vm: 3 arquivos, todas as combinacoes
+[19:37:57] $ python3 ref_sim.py comparar
+OK      address.txt        vm               pagina=fifo tlb=fifo
+OK      address.txt        vm_tlb_nothread  pagina=fifo tlb=fifo
+OK      address.txt        vm               pagina=fifo tlb=lru
+OK      address.txt        vm_tlb_nothread  pagina=fifo tlb=lru
+OK      address.txt        vm_128_notlb     pagina=fifo  -> vm faults=460 ref faults=460
+OK      address.txt        vm               pagina=lru tlb=fifo
+OK      address.txt        vm_tlb_nothread  pagina=lru tlb=fifo
+OK      address.txt        vm               pagina=lru tlb=lru
+OK      address.txt        vm_tlb_nothread  pagina=lru tlb=lru
+OK      address.txt        vm_128_notlb     pagina=lru  -> vm faults=465 ref faults=465
+OK      address.txt        vm_256_notlb     (256 frames)  -> vm faults=250 substituicoes=0
+OK      laco_150_paginas   vm               pagina=fifo tlb=fifo
+OK      laco_150_paginas   vm_tlb_nothread  pagina=fifo tlb=fifo
+OK      laco_150_paginas   vm               pagina=fifo tlb=lru
+OK      laco_150_paginas   vm_tlb_nothread  pagina=fifo tlb=lru
+OK      laco_150_paginas   vm_128_notlb     pagina=fifo  -> vm faults=908 ref faults=908
+OK      laco_150_paginas   vm               pagina=lru tlb=fifo
+OK      laco_150_paginas   vm_tlb_nothread  pagina=lru tlb=fifo
+OK      laco_150_paginas   vm               pagina=lru tlb=lru
+OK      laco_150_paginas   vm_tlb_nothread  pagina=lru tlb=lru
+OK      laco_150_paginas   vm_128_notlb     pagina=lru  -> vm faults=908 ref faults=908
+OK      laco_150_paginas   vm_256_notlb     (256 frames)  -> vm faults=150 substituicoes=0
+OK      uniforme_2000      vm               pagina=fifo tlb=fifo
+OK      uniforme_2000      vm_tlb_nothread  pagina=fifo tlb=fifo
+OK      uniforme_2000      vm               pagina=fifo tlb=lru
+OK      uniforme_2000      vm_tlb_nothread  pagina=fifo tlb=lru
+OK      uniforme_2000      vm_128_notlb     pagina=fifo  -> vm faults=1034 ref faults=1034
+OK      uniforme_2000      vm               pagina=lru tlb=fifo
+OK      uniforme_2000      vm_tlb_nothread  pagina=lru tlb=fifo
+OK      uniforme_2000      vm               pagina=lru tlb=lru
+OK      uniforme_2000      vm_tlb_nothread  pagina=lru tlb=lru
+OK      uniforme_2000      vm_128_notlb     pagina=lru  -> vm faults=1022 ref faults=1022
+OK      uniforme_2000      vm_256_notlb     (256 frames)  -> vm faults=256 substituicoes=0
+RESUMO (comparar): 33/33 verificacoes OK
+[19:38:06] (saida=0)
+
+[19:38:06] ##### 9. Testes dirigidos (resultado calculado a mao): FIFO x LRU em paginas e TLB, invalidacao da TLB
+  (esperado FIFO: pag.128 vai ao frame 0 -> fisico 5; pag.0 volta no frame 1 -> fisico 261; 130 faults)
+  (esperado LRU : pag.128 vai ao frame 1 -> fisico 261; pag.0 ainda residente no frame 0 -> fisico 5; 129 faults)
+OK      D1 FIFO: vitima = frame 0 (pagina mais antiga)  -> fisico obtido=5
+OK      D1 FIFO: pagina 0 sofre novo page fault (130 faults)  -> faults=130 fisico=261
+OK      D1 LRU : vitima = frame 1 (pagina 0 foi reusada)  -> fisico obtido=261
+OK      D1 LRU : pagina 0 continua residente (129 faults)  -> faults=129 fisico=5
+  (esperado TLB FIFO: 1 hit; TLB LRU: 2 hits)
+OK      D2 TLB FIFO: 1 hit (pagina 0 foi a mais antiga e saiu)  -> hits=1
+OK      D2 TLB LRU : 2 hits (pagina 1 saiu, pagina 0 ficou)  -> hits=2
+OK      D3 invalidacao da TLB: pagina 0 recarregada no frame 1 (fisico 256+9=265, valor correto)  -> fisico=265 valor=-51 esperado valor=-51
+RESUMO (dirigidos): 7/7 verificacoes OK
+
+[19:38:06] ##### 10. Casos limite
+OK      0, 255, 256, 65535  -> saida=[(0, 0, 42), (255, 255, 104), (256, 256, 78), (65535, 767, 23)]
+OK      65536 e 4294967295 (truncados para 16 bits)  -> saida=[(65536, 0, 42), (4294967295, 511, 23), (65537, 1, -12)]
+OK      arquivo com 1 unico endereco  -> saida=[(12345, 57, -111)]
+OK      mesmo endereco 3x (hits)  -> saida=[(777, 9, -114), (777, 9, -114), (777, 9, -114)]
+OK      arquivo com fim de linha Windows (CRLF)
+OK      arquivo sem quebra de linha no final
+OK      espacos ao redor do numero e linhas em branco no final
+RESUMO (limites): 7/7 verificacoes OK
+
+[19:38:06] ##### 11. Casos invalidos (mensagem coerente + codigo de saida 1)
+[19:38:06] --- E1 sem argumentos
+[19:38:06] $ ./vm 
+Erro: numero de argumentos invalido (esperado 3, recebido 0)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E2 argumentos a menos
+[19:38:06] $ ./vm address.txt lru
+Erro: numero de argumentos invalido (esperado 3, recebido 2)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E3 argumentos a mais
+[19:38:06] $ ./vm address.txt lru fifo extra
+Erro: numero de argumentos invalido (esperado 3, recebido 4)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E4 algoritmo de pagina invalido
+[19:38:06] $ ./vm address.txt xyz fifo
+Erro: algoritmo de pagina invalido 'xyz' (use fifo ou lru)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E5 algoritmo de TLB invalido
+[19:38:06] $ ./vm address.txt lru 123
+Erro: algoritmo de TLB invalido '123' (use fifo ou lru)
+Uso: ./vm <arquivo_de_enderecos> <fifo|lru> <fifo|lru>
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E6 arquivo inexistente
+[19:38:06] $ ./vm naoexiste.txt lru fifo
+Erro: nao foi possivel abrir o arquivo de enderecos 'naoexiste.txt': No such file or directory
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E7 arquivo e um diretorio
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy lru fifo
+Erro: falha ao ler '/tmp/tmp.XoXAE0kvVy'
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E8 linha nao numerica
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy/texto.txt lru fifo
+Erro: formato invalido em '/tmp/tmp.XoXAE0kvVy/texto.txt' (linha 3: "abc" nao e um inteiro nao negativo)
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E9 linha em branco no meio
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy/branco.txt lru fifo
+Erro: formato invalido em '/tmp/tmp.XoXAE0kvVy/branco.txt' (linha em branco antes da linha 3)
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E10 numero negativo
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy/neg.txt lru fifo
+Erro: formato invalido em '/tmp/tmp.XoXAE0kvVy/neg.txt' (linha 2: "-5" nao e um inteiro nao negativo)
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E11 numero acima de 32 bits
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy/grande.txt lru fifo
+Erro: formato invalido em '/tmp/tmp.XoXAE0kvVy/grande.txt' (linha 1: valor fora do intervalo de 32 bits)
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E12 arquivo vazio
+[19:38:06] $ ./vm /tmp/tmp.XoXAE0kvVy/vazio.txt lru fifo
+Erro: o arquivo '/tmp/tmp.XoXAE0kvVy/vazio.txt' esta vazio (nenhum endereco encontrado)
+     -> saida=1 e correct.txt nao criado: OK
+[19:38:06] --- E13 BACKING_STORE.bin ausente
+[19:38:06] $ ./vm address.txt lru fifo
+Erro: nao foi possivel abrir BACKING_STORE.bin: No such file or directory
+     -> saida=1 e correct.txt nao criado: OK
+
+[19:38:06] ##### 12. Sanitizers: ThreadSanitizer (corrida de dados) e Valgrind (memoria)
+[19:38:06] $ gcc -g -O1 -fsanitize=thread -pthread -o /tmp/tmp.XoXAE0kvVy/vm_tsan vm.c && /tmp/tmp.XoXAE0kvVy/vm_tsan address.txt lru fifo 2>&1 | grep -E 'WARNING|ThreadSanitizer|Page Faults|TLB Hits ='
+Page Faults = 465
+TLB Hits = 112
+[19:38:08] (saida=0)
+     (esperado: nenhum WARNING do ThreadSanitizer; mesmos Page Faults/TLB Hits dos fluxos 6)
+[19:38:08] $ valgrind -q --error-exitcode=9 --leak-check=full ./vm pequeno.txt lru fifo   (40 enderecos)
+     codigo de saida do valgrind = 0 (0 = nenhum erro de memoria); linhas em stderr: 0
+
+[19:38:24] ##### 13. Desempenho: TLB com threads x TLB sem threads (5000 enderecos aleatorios)
+vm_128_notlb: 5 ms
+vm_tlb_nothread: 5 ms
+vm: 2153 ms
+vm_tlb_nothread: 5 ms
+vm: 2169 ms
+
+[19:38:29] ##### RESULTADO FINAL DA SESSAO
+[19:38:29] Todas as verificacoes passaram (0 falhas).
